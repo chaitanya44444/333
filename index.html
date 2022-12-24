@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Blog</title>
+    <style>
+      body {
+        background-color: lightblue;
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      #blog-posts {
+        width: 80%;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      .blog-post {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+      }
+
+      .blog-post h2 {
+        margin: 0;
+      }
+
+      #new-post-button {
+        background-color: lightgreen;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to My Blog</h1>
+    <div id="blog-posts"></div>
+    <button id="new-post-button">New Post</button>
+    <script>
+      const blogPostsDiv = document.getElementById('blog-posts');
+      const newPostButton = document.getElementById('new-post-button');
+
+      newPostButton.addEventListener('click', () => {
+        // Prompt the user for the title and content of the new blog post
+        const title = prompt('Enter the title of the new blog post:');
+        const content = prompt('Enter the content of the new blog post:');
+
+        // Create a new blog post file with the given title
+        const filename = `${title.toLowerCase().replace(/\s/g, '-')}.html`;
+        const fileContent = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>${title}</title>
+            </head>
+            <body>
+              <h1>${title}</h1>
+              <p>${content}</p>
+            </body>
+          </html>
+        `;
+
+        // Save the new blog post file
+        // (Note: this is just a simulated saving process for the purpose of this example.
+        // In a real application, you would need to use a server-side language like PHP or Node.js
+        // to write the file to the server's file system.)
+        const saved = saveFile(filename, fileContent);
+        if (!saved) {
+          alert('Failed to save blog post');
+          return;
+        }
+
+        // Create a link to the new blog post
+        const blogPostLink = document.createElement('a');
+        blogPostLink.href = filename;
+        blogPostLink.innerText = title;
+
+        // Add the link to the homepage
+        document.body.insertBefore(blogPostLink, blogPostsDiv);
+      });
+
+       function saveFile(filename, fileContent) {
+        // This is a simulated saving process for the purpose of this example.
+        // In a real application, you would need to use a server-side language like PHP or Node.js
+        // to write the file to the server's file system.
+        console.log(`Saving ${filename}...`);
+        console.log(fileContent);
+        console.log('Saved!');
+        return true;
+      }
+    </script>
+  </body>
+</html>
